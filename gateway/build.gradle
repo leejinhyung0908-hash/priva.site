@@ -1,0 +1,44 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+	// Spring Cloud Gateway (WebFlux 기반)
+	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+	
+	// Eureka Client (Service Discovery)
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	
+	// Load Balancer
+	implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+	
+	// Circuit Breaker (Resilience4j)
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+	
+	// Redis (Rate Limiting)
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+	
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	
+	// Actuator (모니터링)
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+	
+	// SpringDoc OpenAPI (Swagger)
+	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
+	
+	// Config (optional)
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	
+	// DevTools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	// Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'}

@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: gateway
+  server:
+    port: 8080
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      routes:
+        # Auth-service 기본 라우팅
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+        # OAuth2 카카오 콜백 라우팅 - Auth-Service로 전달
+        - id: kakao-callback
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth2/kakao/callback
+        # OAuth2 네이버 콜백 라우팅 - Auth-Service로 전달
+        - id: naver-login
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth2/naver/login
+        - id: naver-callback
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth2/naver/callback
+        # 구글 로그인 요청 라우팅
+        - id: google-login
+          uri: lb://auth-service
+          predicates:
+            - Path=/google/login
+        # 구글 OAuth 콜백 라우팅
+        - id: google-callback
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth2/google/callback
+
+        # 루트 경로 - Swagger UI로 리다이렉트
+        - id: root-redirect
+          uri: http://localhost:8080
+          predicates:
+            - Path=/
+          filters:
+            - SetPath=/docs
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+# Gateway는 Eureka 사용하지 않음
+eureka:
+  client:
+    enabled: false
+
+# Swagger / Springdoc 설정
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /docs
+    enabled: true
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+
+# 카카오 관련 환경변수 (기본값 설정)
+kakao:
+  rest-api-key: ${KAKAO_REST_API_KEY:}
+  # Gateway의 실제 콜백 경로
+  redirect-uri: ${KAKAO_REDIRECT_URI:http://localhost:8080/oauth2/kakao/callback}
+
+# 네이버 관련 환경변수 (기본값 설정)
+naver:
+  client-id: ${NAVER_CLIENT_ID:}
+  redirect-uri: ${NAVER_REDIRECT_URI:http://localhost:8080/oauth2/naver/callback}
+
+# 구글 관련 환경변수 (기본값 설정)
+google:
+  client-id: ${GOOGLE_CLIENT_ID:}
+  redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/oauth2/google/callback}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:default-secret-key-change-in-production}
+
+frontend:
+  login-callback-url: ${FRONT_LOGIN_CALLBACK_URL:http://localhost:3000}

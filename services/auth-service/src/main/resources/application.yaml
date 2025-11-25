@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: auth-service
+  server:
+    port: 8081
+
+kakao:
+  rest-api-key: ${KAKAO_REST_API_KEY:}
+  redirect-uri: ${KAKAO_REDIRECT_URI:http://localhost:8080/oauth2/kakao/callback}
+
+naver:
+  client-id: ${NAVER_CLIENT_ID}
+  client-secret: ${NAVER_CLIENT_SECRET}
+  redirect-uri: ${NAVER_REDIRECT_URI:http://localhost:8080/oauth2/naver/callback}
+
+google:
+  client-id: ${GOOGLE_CLIENT_ID}
+  client-secret: ${GOOGLE_CLIENT_SECRET}
+  redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/oauth2/google/callback}
+  
+security:
+  jwt:
+    secret: ${JWT_SECRET:default-secret-key-change-in-production}
+
+frontend:
+  login-callback-url: ${FRONT_LOGIN_CALLBACK_URL:http://localhost:3000}
+
+eureka:
+  client:
+    enabled: false
