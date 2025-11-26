@@ -10,31 +10,31 @@ spring:
       routes:
         # Auth-service 기본 라우팅
         - id: auth-service
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/api/auth/**
         # OAuth2 카카오 콜백 라우팅 - Auth-Service로 전달
         - id: kakao-callback
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/oauth2/kakao/callback
         # OAuth2 네이버 콜백 라우팅 - Auth-Service로 전달
         - id: naver-login
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/oauth2/naver/login
         - id: naver-callback
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/oauth2/naver/callback
         # 구글 로그인 요청 라우팅
         - id: google-login
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/google/login
         # 구글 OAuth 콜백 라우팅
         - id: google-callback
-          uri: lb://auth-service
+          uri: http://authservice:8081
           predicates:
             - Path=/oauth2/google/callback
 

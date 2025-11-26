@@ -8,9 +8,6 @@ dependencies {
 	// Eureka Client (Service Discovery)
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	
-	// Load Balancer
-	implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-	
 	// Circuit Breaker (Resilience4j)
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
 	
